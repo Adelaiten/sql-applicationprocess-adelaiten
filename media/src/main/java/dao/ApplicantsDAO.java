@@ -33,8 +33,15 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         return applicant;
     }
 
-    public void addApplicant(Applicant applicant) {
-
+    public void addApplicant(Applicant applicant) throws SQLException{
+        String query = "INSERT INTO applicants (first_name, last_name, phone_number, email, application_code) VALUES (?,?,?,?,?);";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, applicant.getFirstName());
+        preparedStatement.setString(2, applicant.getLastName());
+        preparedStatement.setString(3, applicant.getPhoneNumber());
+        preparedStatement.setString(4, applicant.getEmail());
+        preparedStatement.setInt(5, applicant.getApplicationCode());
+        preparedStatement.executeUpdate();
     }
 
     public Applicant getApplicantByApplicationCode(int applicationCode) {
