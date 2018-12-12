@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9b2cd22-e914-47a0-a1e9-1e3ea319a17e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/SQLConnector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/daoInterface/ApplicantsDaoInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/ApplicantsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ApplicantsDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/MentorsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/daoInterface/MentorsDaoInterface.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -41,12 +37,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="29" />
-          <entry key="java" value="1487" />
+          <entry key="java" value="1971" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1487" />
+          <entry key="JAVA" value="1971" />
           <entry key="PLAIN_TEXT" value="29" />
         </counts>
       </usages-collector>
@@ -87,14 +83,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/dao/ApplicantsDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="23" column="66" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
+            <state relative-caret-position="320">
+              <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#290#291#0" expanded="true" />
                 <element signature="e#334#335#0" expanded="true" />
-                <element signature="e#299#300#0" expanded="true" />
-                <element signature="e#326#327#0" expanded="true" />
                 <element signature="e#461#462#0" expanded="true" />
                 <element signature="e#488#489#0" expanded="true" />
               </folding>
@@ -212,7 +206,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544610369262" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544610370767" />
     <property name="last_opened_file_path" value="$USER_HOME$/hackathon/hackathon-educational-project/pom.xml" />
   </component>
   <component name="RecentsManager">
@@ -246,7 +240,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="46" y="-779" width="1321" height="780" extended-state="6" />
+    <frame x="46" y="-11" width="1321" height="780" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24943139" />
@@ -380,14 +374,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dao/ApplicantsDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="23" column="66" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
+        <state relative-caret-position="320">
+          <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#290#291#0" expanded="true" />
             <element signature="e#334#335#0" expanded="true" />
-            <element signature="e#299#300#0" expanded="true" />
-            <element signature="e#326#327#0" expanded="true" />
             <element signature="e#461#462#0" expanded="true" />
             <element signature="e#488#489#0" expanded="true" />
           </folding>

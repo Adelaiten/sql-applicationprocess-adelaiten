@@ -19,19 +19,18 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         preparedStatement.setString(1, firstName);
         Applicant applicant = new Applicant();
         ResultSet resultSet = preparedStatement.executeQuery();
-        while(resultSet.next()){
-            applicant.setId(resultSet.getInt("id"));
-            applicant.setFirstName(resultSet.getString("first_name"));
-            applicant.setLastName(resultSet.getString("last_name"));
-            applicant.setPhoneNumber(resultSet.getString("phone_number"));
-            applicant.setEmail(resultSet.getString("email"));
-            applicant.setApplicationCode(resultSet.getInt("application_code"));
-        }
+        fillApplicant(resultSet, applicant);
         return applicant;
     }
 
-    public Applicant getApplicantByEmail(String email) {
-        return null;
+    public Applicant getApplicantByEmail(String email) throws SQLException{
+        String query = "SELECT * FROM applicants WHERE email=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, email);
+        Applicant applicant = new Applicant();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        fillApplicant(resultSet, applicant);
+        return applicant;
     }
 
     public void addApplicant(Applicant applicant) {
@@ -44,5 +43,16 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
 
     public void updateApplicant(Applicant applicant) {
 
+    }
+
+    private void fillApplicant(ResultSet resultSet, Applicant applicant) throws SQLException{
+        while(resultSet.next()){
+            applicant.setId(resultSet.getInt("id"));
+            applicant.setFirstName(resultSet.getString("first_name"));
+            applicant.setLastName(resultSet.getString("last_name"));
+            applicant.setPhoneNumber(resultSet.getString("phone_number"));
+            applicant.setEmail(resultSet.getString("email"));
+            applicant.setApplicationCode(resultSet.getInt("application_code"));
+        }
     }
 }
