@@ -44,11 +44,17 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         preparedStatement.executeUpdate();
     }
 
-    public Applicant getApplicantByApplicationCode(int applicationCode) {
-        return null;
+    public Applicant getApplicantByApplicationCode(int applicationCode) throws SQLException{
+        String query = "SELECT * FROM applicants WHERE application_code=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, applicationCode);
+        Applicant applicant = new Applicant();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        fillApplicant(resultSet, applicant);
+        return applicant;
     }
 
-    public void updateApplicant(Applicant applicant) {
+    public void updateApplicant(Applicant applicant) throws SQLException{
 
     }
 
