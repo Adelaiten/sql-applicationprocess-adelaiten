@@ -2,11 +2,14 @@ package dao.daoInterface;
 
 import models.Mentor;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface MentorsDaoInterface {
 
-    List<Mentor> getMentorsFirstAndLastName();
-    List<Mentor> getMentorsNickNamesByCity(String city);
+    List<Mentor> getAllMentors() throws SQLException;
+    Mentor getMentorById() throws SQLException;
+    List<Mentor> getMentorsFirstAndLastName() throws SQLException;
+    List<Mentor> getMentorsNickNamesByCity(String city) throws SQLException;
 
 }

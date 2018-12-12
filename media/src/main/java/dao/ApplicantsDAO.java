@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicantsDAO implements ApplicantsDaoInterface {
-    Connection connection;
+    private Connection connection;
     public ApplicantsDAO(Connection connection) {
         this.connection = connection;
     }
