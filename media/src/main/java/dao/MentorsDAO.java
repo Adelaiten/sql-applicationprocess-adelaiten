@@ -7,6 +7,6 @@ import java.util.List;
 public interface MentorsDAO {
 
     List<Mentor> getMentorsFirstAndLastName();
-    List<Mentor> getMentorsNickNamesByCity();
+    List<Mentor> getMentorsNickNamesByCity(String city);
 
 }
