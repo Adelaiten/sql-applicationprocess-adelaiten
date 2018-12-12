@@ -10,6 +10,15 @@ public class Mentor {
     private String city;
     private int favouriteNumber;
 
+    public Mentor() {
+        this.id = 0;
+        this.firstName = "";
+        this.lastName = "";
+        this.phoneNumber = "";
+        this.email = "";
+        this.city = "";
+        this.favouriteNumber = 0;
+    }
     public int getId() {
         return id;
     }
