@@ -1,0 +1,18 @@
+package view;
+
+import models.Mentor;
+
+import java.util.List;
+
+public class TablePrinter {
+
+
+    public void printMentorListTable(List<Mentor> mentors){
+        String format = "|%1$-3s|%2$-15s|%3$-15s|%4$-15s|%5$-20s|%6$-10s|%7$-35s|%8$-10s|\n";
+
+        for(Mentor mentor : mentors) {
+
+            System.out.format(format, mentor.getId(), mentor.getFirstName(), mentor.getLastName(), mentor.getNickName(), mentor.getPhoneNumber(), mentor.getCity(), mentor.getEmail(), mentor.getFavouriteNumber());
+        }
+    }
+}
