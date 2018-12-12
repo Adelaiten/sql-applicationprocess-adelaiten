@@ -2,7 +2,7 @@ package dao.daoInterface;
 
 import models.Applicant;
 
-public interface ApplicantsDAO {
+public interface ApplicantsDaoInterface {
     Applicant getApplicantByFirstName(String firstName);
     Applicant getApplicantByEmail(String email);
     void addApplicant(Applicant applicant);
