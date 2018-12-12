@@ -18,7 +18,7 @@ public class MentorsDAO implements MentorsDaoInterface {
     }
 
     public List<Mentor> getMentorsFirstAndLastName() throws SQLException {
-        String query = "SELECT first_name, last_name FROM mentors";
+        String query = "SELECT first_name, last_name FROM mentors;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         List<Mentor> mentorsList = new ArrayList<Mentor>();
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -78,6 +78,16 @@ public class MentorsDAO implements MentorsDaoInterface {
     }
 
     public List<Mentor> getMentorsNickNamesByCity(String city) throws SQLException{
-        return null;
+        String query = "SELECT nick_name FROM mentors where city = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, city);
+        List<Mentor> mentorsList = new ArrayList<Mentor>();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()){
+            Mentor mentor = new Mentor();
+            mentor.setNickName(resultSet.getString("nick_name"));
+            mentorsList.add(mentor);
+        }
+        return mentorsList;
     }
 }
