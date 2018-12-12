@@ -54,8 +54,16 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         return applicant;
     }
 
-    public void updateApplicant(Applicant applicant) throws SQLException{
-
+    public void updateApplicant(Applicant applicant) throws SQLException{ //najpierw wyzej ma pytac o id aplikanta, pozniej co chce uzupelnic, przekazuje sie obiekt
+        String query = "UPDATE applicants SET first_name = ?, last_name = ?, phone_number = ?, email = ?, application_code = ? WHERE id=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, applicant.getFirstName());
+        preparedStatement.setString(2, applicant.getLastName());
+        preparedStatement.setString(3, applicant.getPhoneNumber());
+        preparedStatement.setString(4, applicant.getEmail());
+        preparedStatement.setInt(5, applicant.getApplicationCode());
+        preparedStatement.setInt(6, applicant.getId());
+        preparedStatement.executeUpdate();
     }
 
     private void fillApplicant(ResultSet resultSet, Applicant applicant) throws SQLException{
