@@ -4,7 +4,7 @@ import models.Mentor;
 
 import java.util.List;
 
-public interface ApplicantsDAO {
+public interface MentorsDAO {
 
     List<Mentor> getMentorsFirstAndLastName();
     List<Mentor> getMentorsNickNamesByCity();
