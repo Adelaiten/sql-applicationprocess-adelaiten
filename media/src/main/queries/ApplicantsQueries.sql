@@ -4,3 +4,4 @@ INSERT INTO applicants(first_name, last_name, phone_number, email, application_c
 SELECT * FROM applicants WHERE application_code = 54823;
 UPDATE applicants SET phone_number = '003670/223-7459' WHERE first_name = '''Jemima''' AND last_name = '''Foreman''';
 SELECT * FROM applicants WHERE application_code = 58324;
+DELETE FROM applicants WHERE email like '''%mauriseu.net''';
