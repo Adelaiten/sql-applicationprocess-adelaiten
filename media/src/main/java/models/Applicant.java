@@ -8,6 +8,14 @@ public class Applicant {
     private String email;
     private int applicationCode;
 
+    public Applicant(){
+        this.id = 0;
+        this.firstName = "";
+        this.lastName = "";
+        this.phoneNumber = "";
+        this.email = "";
+        this.applicationCode = 0;
+    }
     public int getId() {
         return id;
     }
