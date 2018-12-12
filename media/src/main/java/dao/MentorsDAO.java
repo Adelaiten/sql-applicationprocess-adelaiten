@@ -58,8 +58,23 @@ public class MentorsDAO implements MentorsDaoInterface {
         return mentorsList;
     }
 
-    public Mentor getMentorById() throws SQLException {
-        return null;
+    public Mentor getMentorById(int id) throws SQLException {
+        String query = "SELECT * FROM mentors where city = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, id);
+        Mentor mentor = new Mentor();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()){
+            mentor.setId(resultSet.getInt("id"));
+            mentor.setFirstName(resultSet.getString("first_name"));
+            mentor.setLastName(resultSet.getString("last_name"));
+            mentor.setNickName(resultSet.getString("nick_name"));
+            mentor.setPhoneNumber(resultSet.getString("phone_number"));
+            mentor.setEmail(resultSet.getString("email"));
+            mentor.setCity(resultSet.getString("city"));
+            mentor.setFavouriteNumber(resultSet.getInt("favourite_number"));
+        }
+        return mentor;
     }
 
     public List<Mentor> getMentorsNickNamesByCity(String city) throws SQLException{
