@@ -1,8 +1,6 @@
-package view;
+package views;
 
-public class View {
-
-
+public class MenusPrinter {
 
     public void printMainMenu() {
         System.out.println("What would you like to do?");
