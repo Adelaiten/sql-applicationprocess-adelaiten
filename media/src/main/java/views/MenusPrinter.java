@@ -4,7 +4,7 @@ public class MenusPrinter {
 
     public void printMainMenu() {
         System.out.println("What would you like to do?");
-        System.out.println("(1) Mentors menu\n(2) Applicants");
+        System.out.println("(1) Mentors menu\n(2) Applicants\n(3) Exit");
     }
 
     public void printMentorMenu(){
