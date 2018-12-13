@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class View {
-    public static void main(String[] args) throws SQLException {
-        TablePrinter tablePrinter = new TablePrinter();
-        Connection connection = SQLConnector.getConnection();
-        ApplicantsDaoInterface applicantsDAO = new ApplicantsDAO(connection);
-        List<Applicant> list = applicantsDAO.getAllApplicants();
-        tablePrinter.printApplicantListTable(list);
+
+
+
+
+    public void printMentorMenu(){
+        System.out.println("(1) Read all Mentors \n(2) Read mentors first and last name\n(3) Read mentor by id\n(4) Read mentor by city");
     }
+
+
 }
