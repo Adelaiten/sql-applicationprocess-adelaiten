@@ -1,20 +1,13 @@
 package view;
 
-import dao.ApplicantsDAO;
-import dao.MentorsDAO;
-import dao.daoInterface.ApplicantsDaoInterface;
-import models.Applicant;
-import models.Mentor;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class View {
 
 
 
+    public void printMainMenu() {
+        System.out.println("What would you like to do?");
+        System.out.println("(1) Mentors menu\n(2) Applicants");
+    }
 
     public void printMentorMenu(){
         System.out.println("(1) Read all Mentors \n(2) Read mentors first and last name\n(3) Read mentor by id\n(4) Read mentor by city");
