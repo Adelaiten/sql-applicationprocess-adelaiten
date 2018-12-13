@@ -18,6 +18,7 @@ public class TablePrinter {
         }
     }
 
+
     public void printApplicantListTable(List<Applicant> applicants){
         String format = "|%1$-3s|%2$-15s|%3$-15s|%4$-20s|%5$-60s|%6$-16s|\n";
         System.out.println("Applicants:");

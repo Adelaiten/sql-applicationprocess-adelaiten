@@ -12,9 +12,12 @@ import java.util.List;
 
 public class ApplicantsDAO implements ApplicantsDaoInterface {
     private Connection connection;
+
+
     public ApplicantsDAO(Connection connection) {
         this.connection = connection;
     }
+
 
     public List<Applicant> getAllApplicants() throws SQLException {
         String query = "SELECT * FROM applicants";
@@ -33,6 +36,8 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         }
         return applicantsList;
     }
+
+
     public Applicant getApplicantByFirstName(String firstName) throws SQLException {
         String query = "SELECT * FROM applicants WHERE first_name=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -43,8 +48,9 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         return applicant;
     }
 
+
     public Applicant getApplicantByEmail(String email) throws SQLException{
-        String query = "SELECT * FROM applicants WHERE email=?;";
+        String query = "SELECT * FROM applicants WHERE email like ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, email);
         Applicant applicant = new Applicant();
@@ -52,6 +58,18 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         fillApplicant(resultSet, applicant);
         return applicant;
     }
+
+
+    public Applicant getApplicantByApplicationCode(int applicationCode) throws SQLException{
+        String query = "SELECT * FROM applicants WHERE application_code=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, applicationCode);
+        Applicant applicant = new Applicant();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        fillApplicant(resultSet, applicant);
+        return applicant;
+    }
+
 
     public void addApplicant(Applicant applicant) throws SQLException{
         String query = "INSERT INTO applicants (first_name, last_name, phone_number, email, application_code) VALUES (?,?,?,?,?);";
@@ -64,15 +82,6 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         preparedStatement.executeUpdate();
     }
 
-    public Applicant getApplicantByApplicationCode(int applicationCode) throws SQLException{
-        String query = "SELECT * FROM applicants WHERE application_code=?;";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, applicationCode);
-        Applicant applicant = new Applicant();
-        ResultSet resultSet = preparedStatement.executeQuery();
-        fillApplicant(resultSet, applicant);
-        return applicant;
-    }
 
     public void updateApplicant(Applicant applicant) throws SQLException{ //najpierw wyzej ma pytac o id aplikanta, pozniej co chce uzupelnic, przekazuje sie obiekt
         String query = "UPDATE applicants SET first_name = ?, last_name = ?, phone_number = ?, email = ?, application_code = ? WHERE id=?;";
@@ -85,6 +94,7 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         preparedStatement.setInt(6, applicant.getId());
         preparedStatement.executeUpdate();
     }
+
 
     private void fillApplicant(ResultSet resultSet, Applicant applicant) throws SQLException{
         while(resultSet.next()){
