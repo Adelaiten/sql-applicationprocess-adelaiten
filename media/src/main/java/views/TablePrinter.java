@@ -24,7 +24,6 @@ public class TablePrinter {
         System.out.println("Applicants:");
         System.out.format(format,"id","First Name", "Last Name",  "Phone Number", "Email", "Application Code");
         for(Applicant applicant : applicants) {
-
             System.out.format(format, applicant.getId(), applicant.getFirstName(), applicant.getLastName(), applicant.getPhoneNumber(), applicant.getEmail(), applicant.getApplicationCode());
         }
     }

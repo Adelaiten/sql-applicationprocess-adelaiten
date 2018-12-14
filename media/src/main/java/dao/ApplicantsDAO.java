@@ -19,6 +19,22 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
     }
 
 
+    public Applicant getApplicantById(int id) throws SQLException {
+        String query = "SELECT * FROM applicants where id = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, id);
+        Applicant applicant = new Applicant();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()){
+            applicant.setId(id);
+            applicant.setFirstName(resultSet.getString("first_name"));
+            applicant.setLastName(resultSet.getString("last_name"));
+            applicant.setPhoneNumber(resultSet.getString("phone_number"));
+            applicant.setEmail(resultSet.getString("email"));
+            applicant.setApplicationCode(resultSet.getInt("application_code"));
+        }
+        return applicant;
+    }
     public List<Applicant> getAllApplicants() throws SQLException {
         String query = "SELECT * FROM applicants";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -38,21 +54,30 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
     }
 
 
-    public Applicant getApplicantByFirstName(String firstName) throws SQLException {
+    public List<Applicant> getApplicantByFirstName(String firstName) throws SQLException {
         String query = "SELECT * FROM applicants WHERE first_name=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, firstName);
-        Applicant applicant = new Applicant();
+        preparedStatement.setString(1, "'" + firstName + "'");
+        List<Applicant> applicantsList = new ArrayList<Applicant>();
         ResultSet resultSet = preparedStatement.executeQuery();
-        fillApplicant(resultSet, applicant);
-        return applicant;
+        while(resultSet.next()){
+            Applicant applicant = new Applicant();
+            applicant.setId(resultSet.getInt("id"));
+            applicant.setFirstName(resultSet.getString("first_name"));
+            applicant.setLastName(resultSet.getString("last_name"));
+            applicant.setPhoneNumber(resultSet.getString("phone_number"));
+            applicant.setEmail(resultSet.getString("email"));
+            applicant.setApplicationCode(resultSet.getInt("application_code"));
+            applicantsList.add(applicant);
+        }
+        return applicantsList;
     }
 
 
     public Applicant getApplicantByEmail(String email) throws SQLException{
         String query = "SELECT * FROM applicants WHERE email like ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, email);
+        preparedStatement.setString(1, "'%" + email +"'");
         Applicant applicant = new Applicant();
         ResultSet resultSet = preparedStatement.executeQuery();
         fillApplicant(resultSet, applicant);
