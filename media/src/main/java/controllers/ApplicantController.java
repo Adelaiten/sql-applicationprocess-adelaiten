@@ -1,5 +1,6 @@
 package controllers;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import dao.ApplicantsDAO;
 import dao.daoInterface.ApplicantsDaoInterface;
 import models.Applicant;
@@ -35,31 +36,81 @@ public class ApplicantController {
         if(answer.equals("7")){
             System.out.println("Leaving to main menu!");
         }else if(answer.equals("1")){
-            try{
-                List<Applicant> applicantList = applicantsDao.getAllApplicants();
-                readApplicants(applicantList);
-            }catch(SQLException sql){
-                System.out.println("Couldn't find those mentors!");
-            }
+            readAllAplicants();
         }else if(answer.equals("2")){
-            getApplicantsByFirstName();
+            readApplicantsByFirstName();
         }else if(answer.equals("3")){
             readApplicantByEmail();
         }else if(answer.equals("4")){
            readApplicantByApplicationCode();
         }else if(answer.equals("5")){
             addAplicant();
+        }else if(answer.equals("6")){
+            updateApplicant();
         }
     }
 
-    private void getApplicantsByFirstName() {
-        System.out.println("Tell us name of applicant you would like to find!");
-        String name = "";
+    private void updateApplicant(){
+        readAllAplicants();
+        System.out.println("Provide id of applicants which you'd like to change!");
+        answer = inputGetter();
+        Applicant applicant = null;
         try{
-            name = bufferedReader.readLine();
-        }catch(IOException e){
-            System.out.println("Wrong input");
+            applicant = applicantsDao.getApplicantById(Integer.parseInt(answer));
+        }catch(SQLException sql) {
+            System.out.println("Cannot find this applicant");
         }
+
+        System.out.println("What would you like to update?\n(1) First Name\n(2) Last Name\n(3) Phone number\n (4) Email\n (5) Application Code");
+        answer = inputGetter();
+        if(answer.equals("1")){
+            System.out.println("Provide new first name");
+            String firstName = inputGetter();
+            applicant.setFirstName(firstName);
+            applicantUpdater(applicant);
+        }else if(answer.equals("2")){
+            System.out.println("Provide new last name");
+            String lastName =inputGetter();
+            applicant.setLastName(lastName);
+            applicantUpdater(applicant);
+        }else if(answer.equals("3")){
+            System.out.println("Provide new phone number");
+            String phoneNumber =inputGetter();
+            applicant.setPhoneNumber(phoneNumber);
+            applicantUpdater(applicant);
+        }else if(answer.equals("4")){
+            System.out.println("Provide new email");
+            String email =inputGetter();
+            applicant.setEmail(email);
+            applicantUpdater(applicant);
+        }else if(answer.equals("5")){
+            System.out.println("Provide new application code");
+            int applicationCode =Integer.parseInt(inputGetter());
+            applicant.setApplicationCode(applicationCode);
+            applicantUpdater(applicant);
+        }
+    }
+
+    private void applicantUpdater(Applicant applicant) {
+        try{
+            applicantsDao.updateApplicant(applicant);
+        }catch(SQLException sql) {
+            System.out.println("Cannot update");
+        }
+    }
+
+    private void readAllAplicants() {
+        try{
+            List<Applicant> applicantList = applicantsDao.getAllApplicants();
+            readApplicants(applicantList);
+        }catch(SQLException sql){
+            System.out.println("Couldn't find those mentors!");
+        }
+    }
+
+    private void readApplicantsByFirstName() {
+        System.out.println("Tell us name of applicant you would like to find!");
+        String name = inputGetter();
         try{
             readApplicants(applicantsDao.getApplicantByFirstName(name));
         }catch(SQLException sql){
@@ -73,20 +124,16 @@ public class ApplicantController {
         String phoneNumber = "";
         String email = "";
         int applicationCode = 0;
-        try{
-            System.out.println("First name:");
-            firstName = bufferedReader.readLine();
-            System.out.println("Last name:");
-            lastName = bufferedReader.readLine();
-            System.out.println("Phone Number:");
-            phoneNumber = bufferedReader.readLine();
-            System.out.println("Email:");
-            email = bufferedReader.readLine();
-            System.out.println("Application Code");
-            applicationCode = Integer.parseInt(bufferedReader.readLine());
-        }catch(IOException e){
-            System.out.println("Wrong input!");
-        }
+        System.out.println("First name:");
+        firstName = inputGetter();
+        System.out.println("Last name:");
+        lastName = inputGetter();
+        System.out.println("Phone Number:");
+        phoneNumber = inputGetter();
+        System.out.println("Email:");
+        email = inputGetter();
+        System.out.println("Application Code");
+        applicationCode = Integer.parseInt(inputGetter());
         if(firstName.equals("") || lastName.equals("") || phoneNumber.equals("") || email.equals("") || applicationCode == 0){
             System.out.println("wrong input!");
         }else{
@@ -116,11 +163,7 @@ public class ApplicantController {
     }
     private void readApplicantByApplicationCode() {
         System.out.println("What applicant would you like to see (Application Code)?");
-        try{
-            answer = bufferedReader.readLine();
-        }catch(IOException e){
-            System.out.println("Wrong input!");
-        }
+        answer = inputGetter();
         try{
             int answerInt = Integer.parseInt(answer);
             Applicant applicantByApplicationCode = applicantsDao.getApplicantByApplicationCode(answerInt);
@@ -136,11 +179,7 @@ public class ApplicantController {
 
     private void readApplicantByEmail() {
         System.out.println("What applicant would you like to see (email)?");
-        try{
-            answer = bufferedReader.readLine();
-        }catch(IOException e){
-            System.out.println("Wrong input!");
-        }
+        answer = inputGetter();
         Applicant applicantByEmail = null;
         try{
             applicantByEmail = applicantsDao.getApplicantByEmail(answer);
@@ -156,6 +195,18 @@ public class ApplicantController {
         }else{
             System.out.println("Applicant is empty!");
         }
+    }
+
+
+    private String inputGetter(){
+        answer = "";
+        try{
+            answer = bufferedReader.readLine();
+        }catch(IOException e){
+            System.out.println("Wrong input!");
+        }
+
+        return answer;
     }
 
 }

@@ -19,6 +19,22 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
     }
 
 
+    public Applicant getApplicantById(int id) throws SQLException {
+        String query = "SELECT * FROM mentors where id = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, id);
+        Applicant applicant = new Applicant();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()){
+            applicant.setId(id);
+            applicant.setFirstName(resultSet.getString("first_name"));
+            applicant.setLastName(resultSet.getString("last_name"));
+            applicant.setPhoneNumber(resultSet.getString("phone_number"));
+            applicant.setEmail(resultSet.getString("email"));
+            applicant.setApplicationCode(resultSet.getInt("application_code"));
+        }
+        return applicant;
+    }
     public List<Applicant> getAllApplicants() throws SQLException {
         String query = "SELECT * FROM applicants";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

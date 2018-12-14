@@ -16,6 +16,7 @@ public class MainController {
         boolean isRun = true;
         Connection connection = SQLConnector.getConnection();
         MentorController mentorController = new MentorController(connection);
+        ApplicantController applicantController = new ApplicantController(connection);
         while(isRun) {
             menusPrinter.printMainMenu();
             try{
@@ -29,7 +30,7 @@ public class MainController {
                 mentorController.runMentorController(menusPrinter);
 
             }else if(answer.equals("2")){
-                menusPrinter.printApplicantMenu();
+                applicantController.runApplicantController(menusPrinter);
             }
 
         }
