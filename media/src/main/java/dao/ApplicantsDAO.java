@@ -38,14 +38,23 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
     }
 
 
-    public Applicant getApplicantByFirstName(String firstName) throws SQLException {
+    public List<Applicant> getApplicantByFirstName(String firstName) throws SQLException {
         String query = "SELECT * FROM applicants WHERE first_name=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, firstName);
-        Applicant applicant = new Applicant();
+        List<Applicant> applicantsList = new ArrayList<Applicant>();
         ResultSet resultSet = preparedStatement.executeQuery();
-        fillApplicant(resultSet, applicant);
-        return applicant;
+        while(resultSet.next()){
+            Applicant applicant = new Applicant();
+            applicant.setId(resultSet.getInt("id"));
+            applicant.setFirstName(resultSet.getString("first_name"));
+            applicant.setLastName(resultSet.getString("last_name"));
+            applicant.setPhoneNumber(resultSet.getString("phone_number"));
+            applicant.setEmail(resultSet.getString("email"));
+            applicant.setApplicationCode(resultSet.getInt("application_code"));
+            applicantsList.add(applicant);
+        }
+        return applicantsList;
     }
 
 

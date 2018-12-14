@@ -3,7 +3,6 @@ package controllers;
 import dao.ApplicantsDAO;
 import dao.daoInterface.ApplicantsDaoInterface;
 import models.Applicant;
-import models.Mentor;
 import views.MenusPrinter;
 import views.TablePrinter;
 
@@ -37,13 +36,21 @@ public class ApplicantController {
             System.out.println("Leaving to main menu!");
         }else if(answer.equals("1")){
             try{
-                readApplicants();
+                List<Applicant> applicantList = applicantsDao.getAllApplicants();
+                readApplicants(applicantList);
             }catch(SQLException sql){
                 System.out.println("Couldn't find those mentors!");
             }
         }else if(answer.equals("2")){
+            System.out.println("Tell us name of applicant you would like to find!");
+            String name = "";
             try{
-                readApplicants(mentorsDao.getMentorsFirstAndLastName());
+                name = bufferedReader.readLine();
+            }catch(IOException e){
+                System.out.println("Wrong input");
+            }
+            try{
+                readApplicants(applicantsDao.getApplicantByFirstName(name));
             }catch(SQLException sql){
                 System.out.println("Couldn't find those mentors!");
             }
@@ -65,12 +72,28 @@ public class ApplicantController {
         }
     }
 
-    private void readApplicants(List<Applicant> applicants) {
-        List<Applicant> allApplicants = applicants;
-        if (applicants != null) {
-            tablePrinter.printApplicantListTable(applicants);
+    private void readApplicants(List<Applicant> applicantsList) {
+
+        List<Applicant> allApplicants =  applicantsList;
+        if (allApplicants != null) {
+            tablePrinter.printApplicantListTable(allApplicants);
         } else {
             System.out.println("There are no mentors!");
         }
     }
+    private void getApplicantByCity() {
+        System.out.println("What applicant would you like to see (name)?");
+        try{
+            answer = bufferedReader.readLine();
+        }catch(IOException e){
+            System.out.println("Wrong input!");
+        }
+        try{
+            List<Applicant> applicantByFirstName = applicantsDao.getApplicantByFirstName(answer);
+            tablePrinter.printApplicantListTable(applicantByFirstName);
+        }catch(SQLException sql){
+            System.out.println("There is no mentors from this city!");
+        }
+    }
+
 }
