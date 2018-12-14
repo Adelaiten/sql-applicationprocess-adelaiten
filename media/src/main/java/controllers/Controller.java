@@ -65,20 +65,12 @@ public class Controller {
                     readMentorById();
 
                 }else if(answer.equals("4")){
-                    readMentors(mentorsDao.getAllMentors());
-
-                    System.out.println("What mentors would you like to see (city)?");
                     try{
-                        answer = bufferedReader.readLine();
-                    }catch(IOException e){
-                        System.out.println("Wrong input!");
-                    }
-                    try{
-                        List<Mentor> mentorsNicknames = mentorsDao.getMentorsNickNamesByCity(answer);
-                        tablePrinter.printMentorListTable(mentorsNicknames);
+                        readMentors(mentorsDao.getAllMentors());
                     }catch(SQLException sql){
-                        System.out.println("There is no mentors from this city!");
+                        System.out.println("Couldn't find those mentors!");
                     }
+                    getMentorByCity();
 
                 }
 
@@ -86,6 +78,21 @@ public class Controller {
                 menusPrinter.printApplicantMenu();;
             }
 
+        }
+    }
+
+    private void getMentorByCity() {
+        System.out.println("What mentors would you like to see (city)?");
+        try{
+            answer = bufferedReader.readLine();
+        }catch(IOException e){
+            System.out.println("Wrong input!");
+        }
+        try{
+            List<Mentor> mentorsNicknames = mentorsDao.getMentorsNickNamesByCity(answer);
+            tablePrinter.printMentorListTable(mentorsNicknames);
+        }catch(SQLException sql){
+            System.out.println("There is no mentors from this city!");
         }
     }
 
