@@ -32,7 +32,7 @@ public class ApplicantController {
         }catch(IOException e){
             System.out.println("Wrong input!");
         }
-        if(answer.equals("5")){
+        if(answer.equals("7")){
             System.out.println("Leaving to main menu!");
         }else if(answer.equals("1")){
             try{
@@ -42,22 +42,66 @@ public class ApplicantController {
                 System.out.println("Couldn't find those mentors!");
             }
         }else if(answer.equals("2")){
-            System.out.println("Tell us name of applicant you would like to find!");
-            String name = "";
-            try{
-                name = bufferedReader.readLine();
-            }catch(IOException e){
-                System.out.println("Wrong input");
-            }
-            try{
-                readApplicants(applicantsDao.getApplicantByFirstName(name));
-            }catch(SQLException sql){
-                System.out.println("Couldn't find those mentors!");
-            }
+            getApplicantsByFirstName();
         }else if(answer.equals("3")){
             readApplicantByEmail();
         }else if(answer.equals("4")){
            readApplicantByApplicationCode();
+        }else if(answer.equals("5")){
+            addAplicant();
+        }
+    }
+
+    private void getApplicantsByFirstName() {
+        System.out.println("Tell us name of applicant you would like to find!");
+        String name = "";
+        try{
+            name = bufferedReader.readLine();
+        }catch(IOException e){
+            System.out.println("Wrong input");
+        }
+        try{
+            readApplicants(applicantsDao.getApplicantByFirstName(name));
+        }catch(SQLException sql){
+            System.out.println("Couldn't find those mentors!");
+        }
+    }
+
+    private void addAplicant() {
+        String firstName = "";
+        String lastName = "";
+        String phoneNumber = "";
+        String email = "";
+        int applicationCode = 0;
+        try{
+            System.out.println("First name:");
+            firstName = bufferedReader.readLine();
+            System.out.println("Last name:");
+            lastName = bufferedReader.readLine();
+            System.out.println("Phone Number:");
+            phoneNumber = bufferedReader.readLine();
+            System.out.println("Email:");
+            email = bufferedReader.readLine();
+            System.out.println("Application Code");
+            applicationCode = Integer.parseInt(bufferedReader.readLine());
+        }catch(IOException e){
+            System.out.println("Wrong input!");
+        }
+        if(firstName.equals("") || lastName.equals("") || phoneNumber.equals("") || email.equals("") || applicationCode == 0){
+            System.out.println("wrong input!");
+        }else{
+            Applicant applicant = new Applicant();
+            applicant.setFirstName(firstName);
+            applicant.setLastName(lastName);
+            applicant.setPhoneNumber(phoneNumber);
+            applicant.setEmail(email);
+            applicant.setApplicationCode(applicationCode);
+            try{
+                applicantsDao.addApplicant(applicant);
+            }catch(SQLException e){
+                System.out.println("Cannot add this applicant!");
+            }
+
         }
     }
 
