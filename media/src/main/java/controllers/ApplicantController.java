@@ -57,12 +57,7 @@ public class ApplicantController {
         }else if(answer.equals("3")){
             readApplicantByEmail();
         }else if(answer.equals("4")){
-            try{
-                readMentors(mentorsDao.getAllMentors());
-            }catch(SQLException sql){
-                System.out.println("Couldn't find those mentors!");
-            }
-            getMentorByCity();
+           readApplicantByApplicationCode();
         }
     }
 
@@ -75,16 +70,21 @@ public class ApplicantController {
             System.out.println("There are no mentors!");
         }
     }
-    private void getApplicantByCity() {
-        System.out.println("What applicant would you like to see (name)?");
+    private void readApplicantByApplicationCode() {
+        System.out.println("What applicant would you like to see (Application Code)?");
         try{
             answer = bufferedReader.readLine();
         }catch(IOException e){
             System.out.println("Wrong input!");
         }
         try{
-            List<Applicant> applicantByFirstName = applicantsDao.getApplicantByFirstName(answer);
-            tablePrinter.printApplicantListTable(applicantByFirstName);
+            int answerInt = Integer.parseInt(answer);
+            Applicant applicantByApplicationCode = applicantsDao.getApplicantByApplicationCode(answerInt);
+            String format = "|%1$-3s|%2$-15s|%3$-15s|%4$-20s|%5$-60s|%6$-16s|\n";
+            System.out.println("Applicants:");
+            System.out.format(format,"id","First Name", "Last Name",  "Phone Number", "Email", "Application Code");
+            System.out.format(format, applicantByApplicationCode.getId(), applicantByApplicationCode.getFirstName(), applicantByApplicationCode.getLastName(), applicantByApplicationCode.getPhoneNumber(), applicantByApplicationCode.getEmail(), applicantByApplicationCode.getApplicationCode());
+
         }catch(SQLException sql){
             System.out.println("There is no mentors from this city!");
         }
