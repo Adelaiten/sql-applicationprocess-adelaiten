@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 
-public class Controller {
+public class MainController {
     private MenusPrinter menusPrinter = new MenusPrinter();
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     private String answer = "";
@@ -29,7 +29,7 @@ public class Controller {
                 mentorController.runMentorController(menusPrinter);
 
             }else if(answer.equals("2")){
-                menusPrinter.printApplicantMenu();;
+                menusPrinter.printApplicantMenu();
             }
 
         }
