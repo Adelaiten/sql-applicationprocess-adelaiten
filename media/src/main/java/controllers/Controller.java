@@ -45,66 +45,27 @@ public class Controller {
                 if(answer.equals("5")){
                     isRun = false;
                 }else if(answer.equals("1")){
-                   readAllMentors();
-                }else if(answer.equals("2")){
-                    List<Mentor> allMentorsNames = null;
                     try{
-                        allMentorsNames = mentorsDao.getMentorsFirstAndLastName();
-                    }catch(SQLException sql) {
-                        System.out.println("Couldn't find it in database!");
+                        readMentors(mentorsDao.getAllMentors());
+                    }catch(SQLException sql){
+                        System.out.println("Couldn't find those mentors!");
                     }
-                    if(allMentorsNames != null) {
-                        tablePrinter.printMentorListTable(allMentorsNames);
-                    }else {
-                        System.out.println("There are no mentors!");
+                }else if(answer.equals("2")){
+                    try{
+                        readMentors(mentorsDao.getMentorsFirstAndLastName());
+                    }catch(SQLException sql){
+                        System.out.println("Couldn't find those mentors!");
                     }
                 }else if(answer.equals("3")){
-                    List<Mentor> allMentors = null;
                     try{
-                        allMentors = mentorsDao.getAllMentors();
-                    }catch(SQLException sql) {
-                        System.out.println("Couldn't find it in database!");
+                        readMentors(mentorsDao.getAllMentors());
+                    }catch(SQLException sql){
+                        System.out.println("Couldn't find those mentors!");
                     }
-                    if(allMentors != null) {
-                        tablePrinter.printMentorListTable(allMentors);
-                    }else {
-                        System.out.println("There are no mentors!");
-                    }
-
-                    System.out.println("What mentor would you like to see (ID)?");
-                    try{
-                        answer = bufferedReader.readLine();
-                    }catch(IOException e){
-                        System.out.println("Wrong input!");
-                    }
-                    int intAnswer = Integer.parseInt(answer);
-                    Mentor mentorById = null;
-                    try{
-                        mentorById = mentorsDao.getMentorById(intAnswer);
-                    }catch(SQLException e){
-                        System.out.println("There is not mentor with this id!");
-                    }
-                    if(mentorById != null){
-                        String format = "|%1$-3s|%2$-15s|%3$-15s|%4$-15s|%5$-20s|%6$-10s|%7$-35s|%8$-16s|\n";
-                        System.out.println("Mentors:");
-                        System.out.format(format,"id","First Name", "Last Name", "Nick Name", "Phone Number", "City", "Email", "Favourite Number");
-                        System.out.format(format, mentorById.getId(), mentorById.getFirstName(), mentorById.getLastName(), mentorById.getNickName(), mentorById.getPhoneNumber(), mentorById.getCity(), mentorById.getEmail(), mentorById.getFavouriteNumber());
-                    }else{
-                        System.out.println("Mentor is empty!");
-                    }
+                    readMentorById();
 
                 }else if(answer.equals("4")){
-                    List<Mentor> allMentors = null;
-                    try{
-                        allMentors = mentorsDao.getAllMentors();
-                    }catch(SQLException sql) {
-                        System.out.println("Couldn't find it in database!");
-                    }
-                    if(allMentors != null) {
-                        tablePrinter.printMentorListTable(allMentors);
-                    }else {
-                        System.out.println("There are no mentors!");
-                    }
+                    readMentors(mentorsDao.getAllMentors());
 
                     System.out.println("What mentors would you like to see (city)?");
                     try{
@@ -128,16 +89,35 @@ public class Controller {
         }
     }
 
-    private void readAllMentors(){
-        List<Mentor> allMentors = null;
+    private void readMentorById() {
+        System.out.println("What mentor would you like to see (ID)?");
         try{
-            allMentors = mentorsDao.getAllMentors();
-        }catch(SQLException sql) {
-            System.out.println("Couldn't find it in database!");
+            answer = bufferedReader.readLine();
+        }catch(IOException e){
+            System.out.println("Wrong input!");
         }
-        if(allMentors != null) {
-            tablePrinter.printMentorListTable(allMentors);
-        }else {
+        int intAnswer = Integer.parseInt(answer);
+        Mentor mentorById = null;
+        try{
+            mentorById = mentorsDao.getMentorById(intAnswer);
+        }catch(SQLException e){
+            System.out.println("There is not mentor with this id!");
+        }
+        if(mentorById != null){
+            String format = "|%1$-3s|%2$-15s|%3$-15s|%4$-15s|%5$-20s|%6$-10s|%7$-35s|%8$-16s|\n";
+            System.out.println("Mentors:");
+            System.out.format(format,"id","First Name", "Last Name", "Nick Name", "Phone Number", "City", "Email", "Favourite Number");
+            System.out.format(format, mentorById.getId(), mentorById.getFirstName(), mentorById.getLastName(), mentorById.getNickName(), mentorById.getPhoneNumber(), mentorById.getCity(), mentorById.getEmail(), mentorById.getFavouriteNumber());
+        }else{
+            System.out.println("Mentor is empty!");
+        }
+    }
+
+    private void readMentors(List<Mentor> mentors) {
+        List<Mentor> allMentors = mentors;
+        if (mentors != null) {
+            tablePrinter.printMentorListTable(mentors);
+        } else {
             System.out.println("There are no mentors!");
         }
     }
