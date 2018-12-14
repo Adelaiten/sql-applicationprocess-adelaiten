@@ -1,3 +1,5 @@
+package controllers;
+
 import java.sql.*;
 
 public class SQLConnector {

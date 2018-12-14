@@ -8,7 +8,7 @@ public class MenusPrinter {
     }
 
     public void printMentorMenu(){
-        System.out.println("(1) Read all Mentors \n(2) Read mentors first and last name\n(3) Read mentor by id\n(4) Read mentor by city");
+        System.out.println("(1) Read all Mentors \n(2) Read mentors first and last name\n(3) Read mentor by id\n(4) Read mentor by city\n(5) Exit");
     }
 
     public void printApplicantMenu() {
