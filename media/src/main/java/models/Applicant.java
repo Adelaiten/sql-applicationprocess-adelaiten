@@ -17,7 +17,7 @@ public class Applicant {
         this.applicationCode = 0;
     }
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {

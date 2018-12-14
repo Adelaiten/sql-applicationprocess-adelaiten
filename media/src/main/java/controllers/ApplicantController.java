@@ -54,8 +54,9 @@ public class ApplicantController {
         readAllAplicants();
         System.out.println("Provide id of applicants which you'd like to change!");
         answer = inputGetter();
-        Applicant applicant = null;
+        Applicant applicant = new Applicant();
         try{
+            System.out.println(answer);
             applicant = applicantsDao.getApplicantById(Integer.parseInt(answer));
         }catch(SQLException sql) {
             System.out.println("Cannot find this applicant");

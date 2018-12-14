@@ -20,7 +20,7 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
 
 
     public Applicant getApplicantById(int id) throws SQLException {
-        String query = "SELECT * FROM mentors where id = ?;";
+        String query = "SELECT * FROM applicants where id = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, id);
         Applicant applicant = new Applicant();
@@ -57,7 +57,7 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
     public List<Applicant> getApplicantByFirstName(String firstName) throws SQLException {
         String query = "SELECT * FROM applicants WHERE first_name=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, firstName);
+        preparedStatement.setString(1, "'" + firstName + "'");
         List<Applicant> applicantsList = new ArrayList<Applicant>();
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
@@ -77,7 +77,7 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
     public Applicant getApplicantByEmail(String email) throws SQLException{
         String query = "SELECT * FROM applicants WHERE email like ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, email);
+        preparedStatement.setString(1, "'%" + email +"'");
         Applicant applicant = new Applicant();
         ResultSet resultSet = preparedStatement.executeQuery();
         fillApplicant(resultSet, applicant);
