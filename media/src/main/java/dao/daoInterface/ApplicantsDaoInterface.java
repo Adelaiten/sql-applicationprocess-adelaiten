@@ -13,4 +13,5 @@ public interface ApplicantsDaoInterface {
     void addApplicant(Applicant applicant) throws SQLException;
     Applicant getApplicantByApplicationCode(int applicationCode) throws SQLException;
     void updateApplicant(Applicant applicant) throws SQLException;
+    List<Applicant> searchApplicantsByPhrase(String phrase) throws SQLException;
 }

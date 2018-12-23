@@ -33,7 +33,7 @@ public class ApplicantController {
         }catch(IOException e){
             System.out.println("Wrong input!");
         }
-        if(answer.equals("7")){
+        if(answer.equals("8")){
             System.out.println("Leaving to main menu!");
         }else if(answer.equals("1")){
             readAllAplicants();
@@ -47,6 +47,8 @@ public class ApplicantController {
             addAplicant();
         }else if(answer.equals("6")){
             updateApplicant();
+        }else if(answer.equals("7")){
+            readApplicantByPhrase();
         }
     }
 
@@ -208,6 +210,19 @@ public class ApplicantController {
         }
 
         return answer;
+    }
+
+    private void readApplicantByPhrase(){
+        System.out.println("Provide phrase which will be used to find applicant");
+        answer = inputGetter();
+        try{
+            List<Applicant> applicantByPhrase = applicantsDao.searchApplicantsByPhrase(answer);
+            System.out.println(applicantByPhrase);
+            readApplicants(applicantByPhrase);
+        }catch(SQLException sql){
+            sql.printStackTrace();
+            System.out.println("There is no applicants!");
+        }
     }
 
 }

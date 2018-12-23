@@ -120,6 +120,31 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
         preparedStatement.executeUpdate();
     }
 
+    public List<Applicant> searchApplicantsByPhrase(String phrase) throws SQLException{
+        String query = "select * FROM applicants WHERE id = ? OR first_name LIKE ? or last_name LIKE ? OR phone_number LIKE ? OR email LIKE ? OR application_code = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        if(isNumeric(phrase)){
+            preparedStatement.setInt(1, Integer.parseInt(phrase));
+            preparedStatement.setInt(6, Integer.parseInt(phrase));
+        }else {
+            preparedStatement.setNull(1, 0);
+            preparedStatement.setNull(6, 0);
+        }
+        preparedStatement.setString(2, "'%" + phrase +"%'");
+        preparedStatement.setString(3, "'%" + phrase +"%'");
+        preparedStatement.setString(4, "'%" + phrase +"%'");
+        preparedStatement.setString(5, "'%" + phrase +"%'");
+        List<Applicant> applicantsList = new ArrayList<>();
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()){
+            System.out.println("JEST");
+            Applicant applicant = new Applicant();
+            fillApplicant(resultSet, applicant);
+            applicantsList.add(applicant);
+        }
+        return applicantsList;
+    }
+
 
     private void fillApplicant(ResultSet resultSet, Applicant applicant) throws SQLException{
         while(resultSet.next()){
@@ -130,6 +155,15 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
             applicant.setEmail(resultSet.getString("email"));
             applicant.setApplicationCode(resultSet.getInt("application_code"));
         }
+    }
+
+    private boolean isNumeric(String phrase) {
+        try{
+            Integer.parseInt(phrase);
+        }catch(NumberFormatException | NullPointerException e){
+            return false;
+        }
+        return true;
     }
 
 }

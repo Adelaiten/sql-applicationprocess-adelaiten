@@ -32,7 +32,7 @@ public class MentorController {
         }catch(IOException e){
             System.out.println("Wrong input!");
         }
-        if(answer.equals("5")){
+        if(answer.equals("6")){
             System.out.println("Leaving to main menu!");
         }else if(answer.equals("1")){
             try{
@@ -61,6 +61,14 @@ public class MentorController {
                 System.out.println("Couldn't find those mentors!");
             }
             getMentorByCity();
+        }else if(answer.equals("5")){
+            try{
+                System.out.println("Provide phrase which will be used to find mentor!");
+                answer = bufferedReader.readLine();
+                readMentors(mentorsDao.searchMentorByPhrase(answer));
+            }catch(SQLException | IOException sql){
+                System.out.println("Couldn't find those mentors!");
+            }
         }
     }
 

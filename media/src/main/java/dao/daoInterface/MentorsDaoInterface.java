@@ -11,6 +11,6 @@ public interface MentorsDaoInterface {
     Mentor getMentorById(int id) throws SQLException;
     List<Mentor> getMentorsFirstAndLastName() throws SQLException;
     List<Mentor> getMentorsNickNamesByCity(String city) throws SQLException;
-    public List<Mentor> searchMentorByPhrase(String phrase) throws SQLException;
+    List<Mentor> searchMentorByPhrase(String phrase) throws SQLException;
 
 }
