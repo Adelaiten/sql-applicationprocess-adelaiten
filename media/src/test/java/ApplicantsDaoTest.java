@@ -55,4 +55,22 @@ public class ApplicantsDaoTest {
         when(resultSet.getInt(Mockito.anyString())).thenReturn(1000);
         assertTrue(applicantsDao.getApplicantById(2) != null);
     }
+
+    @Test
+    public void testGetApplicantByEmailReturnApplicant() throws SQLException {
+        Connection connection = mock(Connection.class);
+        ApplicantsDaoInterface applicantsDao = new ApplicantsDAO(connection);
+        ResultSet resultSet = mock(ResultSet.class);
+        PreparedStatement preparedStatement = mock(PreparedStatement.class);
+        when(connection.prepareStatement(Mockito.anyString())).thenReturn(preparedStatement);
+        when(preparedStatement.executeQuery()).thenReturn(resultSet);
+        when(resultSet.next()).thenReturn(true).thenReturn(false);
+        when(resultSet.getInt(Mockito.anyString())).thenReturn(1);
+        when(resultSet.getString(Mockito.anyString())).thenReturn("Karol");
+        when(resultSet.getString(Mockito.anyString())).thenReturn("Trzaska");
+        when(resultSet.getString(Mockito.anyString())).thenReturn("2093821");
+        when(resultSet.getString(Mockito.anyString())).thenReturn("karoltrzaska19@gmail.com");
+        when(resultSet.getInt(Mockito.anyString())).thenReturn(1000);
+        assertTrue(applicantsDao.getApplicantByEmail("karoltrzaska19@gmail.com") != null);
+    }
 }

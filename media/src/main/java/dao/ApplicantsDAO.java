@@ -131,4 +131,5 @@ public class ApplicantsDAO implements ApplicantsDaoInterface {
             applicant.setApplicationCode(resultSet.getInt("application_code"));
         }
     }
+
 }
